@@ -42,6 +42,3 @@ type PropertyImage struct {
 	IsCover      bool
 	DisplayOrder int
 }
-
-func main() {
-}
