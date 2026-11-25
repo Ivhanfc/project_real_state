@@ -37,7 +37,7 @@ type LandForSale struct {
 
 type PropertyImage struct {
 	ImageID      string
-	PropertyID   string
+	PropertyID   uint
 	Url          string
 	IsCover      bool
 	DisplayOrder int

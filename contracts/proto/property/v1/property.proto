@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package property.v1;
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "project_real_state/contracts/gen/property/v1;propertyv1";
+
+
+message PropertyImage {
+    string imageID = 1;
+    uint64 propertyID = 2;
+    string url = 3;
+    bool isCover = 4;
+    int32 displayOrder = 5; 
+}
+message Property {
+    uint64 id = 1;
+    string agentID = 2;
+    string name = 3;
+    repeated PropertyImage property_image =  4;
+    string address = 5;
+    string zone = 6;
+    int64  priceCents = 7;
+    string currency = 8;
+    bool   isAvailable = 9;
+    double  sizeM2 = 10;
+
+    oneof details {
+      HouseDetails house = 12;
+      ApartmentDetails apartment= 13;
+      LandForSaleDetails land_for_sale = 14;
+    }
+}
+
+message HouseDetails {
+  int32 levels = 1;
+  int32 bedrooms = 2;
+  int32 bathrooms = 3;
+}
+
+message ApartmentDetails {
+  int32 floor = 1;
+  int32 rooms = 2;
+}
+
+message LandForSaleDetails {
+  int32 quantityOfParcels = 1;
+}
+//Property Requests
+message GetPropertyRequest {
+  uint64 id = 1;
+}
+message AddProductRequest {
+ Property property = 1;
+}
+message UpdatePropertyRequest {
+  Property property = 1;
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+//Property Response data of request 
+message GetPropertyResponse {
+  Property property = 1;
+}
+
+message AddProductResponse {
+  Property property = 1;
+}
+
+
+message UpdatePropertyResponse {
+    Property property = 1;
+}
+
+service PropertyService {
+  rpc GetProperty (GetPropertyRequest) returns (GetPropertyResponse);
+  rpc AddProperty (AddProductRequest) returns (AddProductResponse);
+  rpc DeleteProperty (GetPropertyRequest) returns (google.protobuf.BoolValue);
+  rpc UpdateProperty(UpdatePropertyRequest) returns (UpdatePropertyResponse);
+}
