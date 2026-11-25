@@ -1,0 +1,13 @@
+version: v2
+plugins:
+# Generates Go structs
+  - remote: buf.build/protocolbuffers/go
+    out: contracts/gen
+    opt:
+      - paths=source_relative
+
+# Generate gRPC server/client interfaces
+  - remote: buf.build/grpc/go 
+    out: contracts/gen
+    opt:
+      - paths=source_relative
