@@ -1,0 +1,18 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.tmp/
+frontend/*.local
+
+# Go Backend
+bin/
+*.exe
+*.test
+*.out
+vendor/
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#e6e6eb] text-[#1d1d1f] antialiased min-h-screen selection:bg-zinc-900 selection:text-white;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-panel-muted {
+  background: rgba(220, 220, 228, 0.58);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-panel-dark {
+  background: rgba(28, 28, 32, 0.82);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Scroll-reveal animation system */
+.scroll-reveal {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition-property: transform, opacity, filter;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal[data-variant="up"] {
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  filter: blur(4px);
+}
+
+.scroll-reveal[data-variant="scale"] {
+  transform: translate3d(0, 18px, 0) scale(0.965);
+  filter: blur(4px);
+}
+
+.scroll-reveal[data-variant="fade"] {
+  transform: translate3d(0, 10px, 0);
+  filter: blur(2px);
+}
+
+.scroll-reveal[data-variant="left"] {
+  transform: translate3d(-24px, 0, 0);
+  filter: blur(3px);
+}
+
+.scroll-reveal[data-variant="right"] {
+  transform: translate3d(24px, 0, 0);
+  filter: blur(3px);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  will-change: auto;
+}
+
+/* Smooth conditional section entrance */
+@keyframes panelEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.99);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-panel-enter {
+  animation: panelEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Smooth input/field base transition */
+.field-smooth {
+  transition: border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.22s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal[data-variant="up"],
+  .scroll-reveal[data-variant="scale"],
+  .scroll-reveal[data-variant="fade"],
+  .scroll-reveal[data-variant="left"],
+  .scroll-reveal[data-variant="right"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .animate-panel-enter {
+    animation: none !important;
+  }
+}
