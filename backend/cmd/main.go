@@ -39,15 +39,15 @@ func main() {
 
 		}()
 
-		wrappedGrpc := grpcweb.WrapServer(grpcServer
+		wrappedGrpc := grpcweb.WrapServer(grpcServer,
 		grpcweb.WithOriginFunc(func(origin string) bool {return true}),
 		grpcweb.WithAllowedRequestHeaders([]string{"*"}),
 	)
 	
 	httpServer := &http.Server{
 		Addr: ":8080",
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			if wrappedGrpc.IsGrpcWebRequest(req) || wrappedGrpc.IsAcceptableGrpcCorsRequest(r) {
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if wrappedGrpc.IsGrpcWebRequest(r) || wrappedGrpc.IsAcceptableGrpcCorsRequest(r) {
 				wrappedGrpc.ServeHTTP(w,r)
 				return
 			}
