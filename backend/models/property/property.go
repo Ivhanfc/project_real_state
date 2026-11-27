@@ -42,3 +42,4 @@ type PropertyImage struct {
 	IsCover      bool
 	DisplayOrder int
 }
+

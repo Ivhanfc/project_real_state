@@ -31,7 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PropertyServiceClient interface {
 	GetProperty(ctx context.Context, in *GetPropertyRequest, opts ...grpc.CallOption) (*GetPropertyResponse, error)
-	AddProperty(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
+	AddProperty(ctx context.Context, in *AddPropertyRequest, opts ...grpc.CallOption) (*AddPropertyResponse, error)
 	DeleteProperty(ctx context.Context, in *GetPropertyRequest, opts ...grpc.CallOption) (*wrapperspb.BoolValue, error)
 	UpdateProperty(ctx context.Context, in *UpdatePropertyRequest, opts ...grpc.CallOption) (*UpdatePropertyResponse, error)
 }
@@ -54,9 +54,9 @@ func (c *propertyServiceClient) GetProperty(ctx context.Context, in *GetProperty
 	return out, nil
 }
 
-func (c *propertyServiceClient) AddProperty(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error) {
+func (c *propertyServiceClient) AddProperty(ctx context.Context, in *AddPropertyRequest, opts ...grpc.CallOption) (*AddPropertyResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddProductResponse)
+	out := new(AddPropertyResponse)
 	err := c.cc.Invoke(ctx, PropertyService_AddProperty_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ func (c *propertyServiceClient) UpdateProperty(ctx context.Context, in *UpdatePr
 // for forward compatibility.
 type PropertyServiceServer interface {
 	GetProperty(context.Context, *GetPropertyRequest) (*GetPropertyResponse, error)
-	AddProperty(context.Context, *AddProductRequest) (*AddProductResponse, error)
+	AddProperty(context.Context, *AddPropertyRequest) (*AddPropertyResponse, error)
 	DeleteProperty(context.Context, *GetPropertyRequest) (*wrapperspb.BoolValue, error)
 	UpdateProperty(context.Context, *UpdatePropertyRequest) (*UpdatePropertyResponse, error)
 	mustEmbedUnimplementedPropertyServiceServer()
@@ -105,7 +105,7 @@ type UnimplementedPropertyServiceServer struct{}
 func (UnimplementedPropertyServiceServer) GetProperty(context.Context, *GetPropertyRequest) (*GetPropertyResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProperty not implemented")
 }
-func (UnimplementedPropertyServiceServer) AddProperty(context.Context, *AddProductRequest) (*AddProductResponse, error) {
+func (UnimplementedPropertyServiceServer) AddProperty(context.Context, *AddPropertyRequest) (*AddPropertyResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method AddProperty not implemented")
 }
 func (UnimplementedPropertyServiceServer) DeleteProperty(context.Context, *GetPropertyRequest) (*wrapperspb.BoolValue, error) {
@@ -154,7 +154,7 @@ func _PropertyService_GetProperty_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _PropertyService_AddProperty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddProductRequest)
+	in := new(AddPropertyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func _PropertyService_AddProperty_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: PropertyService_AddProperty_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PropertyServiceServer).AddProperty(ctx, req.(*AddProductRequest))
+		return srv.(PropertyServiceServer).AddProperty(ctx, req.(*AddPropertyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

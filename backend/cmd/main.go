@@ -1,29 +1,46 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
 	propertyv1 "project_real_state/contracts/gen/property/v1"
+	"project_real_state/controllers"
+	"project_real_state/external/mysql"
+	propertymethods "project_real_state/external/mysql/property_methods"
+	"time"
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 
-type Server struct {
-	propertyv1.UnimplementedPropertyServiceServer
-	Mux *http.ServeMux
-}
-
 
 
 func main() {
 	grpcServer := grpc.NewServer()
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found, relying on system environment variables")
+	}
 
-	propertyv1.RegisterPropertyServiceServer(grpcServer,&Server{Mux: nil, })
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	DBConn, err := mysql.ConnectionDB(ctx)
+	if err != nil {
+		log.Fatalf("failed to connect db: %v", err)
+	}
+
+	defer DBConn.Close()
+
+	propertyRepo := propertymethods.NewPropertyAdapter(DBConn)
+	propertyHandler := controllers.NewPropertyHandler(propertyRepo)
+
+	
+	propertyv1.RegisterPropertyServiceServer(grpcServer, propertyHandler)
 	reflection.Register(grpcServer)
 
 	go func()  {

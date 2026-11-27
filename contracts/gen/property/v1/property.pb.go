@@ -104,13 +104,14 @@ type Property struct {
 	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	AgentID       string                 `protobuf:"bytes,2,opt,name=agentID,proto3" json:"agentID,omitempty"`
 	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	PropertyImage []*PropertyImage       `protobuf:"bytes,4,rep,name=property_image,json=propertyImage,proto3" json:"property_image,omitempty"`
-	Address       string                 `protobuf:"bytes,5,opt,name=address,proto3" json:"address,omitempty"`
-	Zone          string                 `protobuf:"bytes,6,opt,name=zone,proto3" json:"zone,omitempty"`
-	PriceCents    int64                  `protobuf:"varint,7,opt,name=priceCents,proto3" json:"priceCents,omitempty"`
-	Currency      string                 `protobuf:"bytes,8,opt,name=currency,proto3" json:"currency,omitempty"`
-	IsAvailable   bool                   `protobuf:"varint,9,opt,name=isAvailable,proto3" json:"isAvailable,omitempty"`
-	SizeM2        float64                `protobuf:"fixed64,10,opt,name=sizeM2,proto3" json:"sizeM2,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	PropertyImage []*PropertyImage       `protobuf:"bytes,5,rep,name=property_image,json=propertyImage,proto3" json:"property_image,omitempty"`
+	Address       string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	Zone          string                 `protobuf:"bytes,7,opt,name=zone,proto3" json:"zone,omitempty"`
+	PriceCents    int64                  `protobuf:"varint,8,opt,name=priceCents,proto3" json:"priceCents,omitempty"`
+	Currency      string                 `protobuf:"bytes,9,opt,name=currency,proto3" json:"currency,omitempty"`
+	IsAvailable   bool                   `protobuf:"varint,10,opt,name=isAvailable,proto3" json:"isAvailable,omitempty"`
+	SizeM2        float64                `protobuf:"fixed64,11,opt,name=sizeM2,proto3" json:"sizeM2,omitempty"`
 	// Types that are valid to be assigned to Details:
 	//
 	//	*Property_House
@@ -168,6 +169,13 @@ func (x *Property) GetAgentID() string {
 func (x *Property) GetName() string {
 	if x != nil {
 		return x.Name
+	}
+	return ""
+}
+
+func (x *Property) GetDescription() string {
+	if x != nil {
+		return x.Description
 	}
 	return ""
 }
@@ -478,27 +486,27 @@ func (x *GetPropertyRequest) GetId() uint64 {
 	return 0
 }
 
-type AddProductRequest struct {
+type AddPropertyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Property      *Property              `protobuf:"bytes,1,opt,name=property,proto3" json:"property,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AddProductRequest) Reset() {
-	*x = AddProductRequest{}
+func (x *AddPropertyRequest) Reset() {
+	*x = AddPropertyRequest{}
 	mi := &file_property_v1_property_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AddProductRequest) String() string {
+func (x *AddPropertyRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddProductRequest) ProtoMessage() {}
+func (*AddPropertyRequest) ProtoMessage() {}
 
-func (x *AddProductRequest) ProtoReflect() protoreflect.Message {
+func (x *AddPropertyRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_property_v1_property_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -510,12 +518,12 @@ func (x *AddProductRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddProductRequest.ProtoReflect.Descriptor instead.
-func (*AddProductRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddPropertyRequest.ProtoReflect.Descriptor instead.
+func (*AddPropertyRequest) Descriptor() ([]byte, []int) {
 	return file_property_v1_property_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *AddProductRequest) GetProperty() *Property {
+func (x *AddPropertyRequest) GetProperty() *Property {
 	if x != nil {
 		return x.Property
 	}
@@ -619,27 +627,27 @@ func (x *GetPropertyResponse) GetProperty() *Property {
 	return nil
 }
 
-type AddProductResponse struct {
+type AddPropertyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Property      *Property              `protobuf:"bytes,1,opt,name=property,proto3" json:"property,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AddProductResponse) Reset() {
-	*x = AddProductResponse{}
+func (x *AddPropertyResponse) Reset() {
+	*x = AddPropertyResponse{}
 	mi := &file_property_v1_property_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AddProductResponse) String() string {
+func (x *AddPropertyResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddProductResponse) ProtoMessage() {}
+func (*AddPropertyResponse) ProtoMessage() {}
 
-func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
+func (x *AddPropertyResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_property_v1_property_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -651,12 +659,12 @@ func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddProductResponse.ProtoReflect.Descriptor instead.
-func (*AddProductResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddPropertyResponse.ProtoReflect.Descriptor instead.
+func (*AddPropertyResponse) Descriptor() ([]byte, []int) {
 	return file_property_v1_property_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *AddProductResponse) GetProperty() *Property {
+func (x *AddPropertyResponse) GetProperty() *Property {
 	if x != nil {
 		return x.Property
 	}
@@ -719,21 +727,22 @@ const file_property_v1_property_proto_rawDesc = "" +
 	"propertyID\x12\x10\n" +
 	"\x03url\x18\x03 \x01(\tR\x03url\x12\x18\n" +
 	"\aisCover\x18\x04 \x01(\bR\aisCover\x12\"\n" +
-	"\fdisplayOrder\x18\x05 \x01(\x05R\fdisplayOrder\"\xf3\x03\n" +
+	"\fdisplayOrder\x18\x05 \x01(\x05R\fdisplayOrder\"\x95\x04\n" +
 	"\bProperty\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x18\n" +
 	"\aagentID\x18\x02 \x01(\tR\aagentID\x12\x12\n" +
-	"\x04name\x18\x03 \x01(\tR\x04name\x12A\n" +
-	"\x0eproperty_image\x18\x04 \x03(\v2\x1a.property.v1.PropertyImageR\rpropertyImage\x12\x18\n" +
-	"\aaddress\x18\x05 \x01(\tR\aaddress\x12\x12\n" +
-	"\x04zone\x18\x06 \x01(\tR\x04zone\x12\x1e\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12A\n" +
+	"\x0eproperty_image\x18\x05 \x03(\v2\x1a.property.v1.PropertyImageR\rpropertyImage\x12\x18\n" +
+	"\aaddress\x18\x06 \x01(\tR\aaddress\x12\x12\n" +
+	"\x04zone\x18\a \x01(\tR\x04zone\x12\x1e\n" +
 	"\n" +
-	"priceCents\x18\a \x01(\x03R\n" +
+	"priceCents\x18\b \x01(\x03R\n" +
 	"priceCents\x12\x1a\n" +
-	"\bcurrency\x18\b \x01(\tR\bcurrency\x12 \n" +
-	"\visAvailable\x18\t \x01(\bR\visAvailable\x12\x16\n" +
-	"\x06sizeM2\x18\n" +
-	" \x01(\x01R\x06sizeM2\x121\n" +
+	"\bcurrency\x18\t \x01(\tR\bcurrency\x12 \n" +
+	"\visAvailable\x18\n" +
+	" \x01(\bR\visAvailable\x12\x16\n" +
+	"\x06sizeM2\x18\v \x01(\x01R\x06sizeM2\x121\n" +
 	"\x05house\x18\f \x01(\v2\x19.property.v1.HouseDetailsH\x00R\x05house\x12=\n" +
 	"\tapartment\x18\r \x01(\v2\x1d.property.v1.ApartmentDetailsH\x00R\tapartment\x12E\n" +
 	"\rland_for_sale\x18\x0e \x01(\v2\x1f.property.v1.LandForSaleDetailsH\x00R\vlandForSaleB\t\n" +
@@ -748,22 +757,22 @@ const file_property_v1_property_proto_rawDesc = "" +
 	"\x12LandForSaleDetails\x12,\n" +
 	"\x11quantityOfParcels\x18\x01 \x01(\x05R\x11quantityOfParcels\"$\n" +
 	"\x12GetPropertyRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"F\n" +
-	"\x11AddProductRequest\x121\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"G\n" +
+	"\x12AddPropertyRequest\x121\n" +
 	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty\"\x87\x01\n" +
 	"\x15UpdatePropertyRequest\x121\n" +
 	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty\x12;\n" +
 	"\vupdate_mask\x18\x02 \x01(\v2\x1a.google.protobuf.FieldMaskR\n" +
 	"updateMask\"H\n" +
 	"\x13GetPropertyResponse\x121\n" +
-	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty\"G\n" +
-	"\x12AddProductResponse\x121\n" +
+	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty\"H\n" +
+	"\x13AddPropertyResponse\x121\n" +
 	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty\"K\n" +
 	"\x16UpdatePropertyResponse\x121\n" +
-	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty2\xdd\x02\n" +
+	"\bproperty\x18\x01 \x01(\v2\x15.property.v1.PropertyR\bproperty2\xdf\x02\n" +
 	"\x0fPropertyService\x12P\n" +
-	"\vGetProperty\x12\x1f.property.v1.GetPropertyRequest\x1a .property.v1.GetPropertyResponse\x12N\n" +
-	"\vAddProperty\x12\x1e.property.v1.AddProductRequest\x1a\x1f.property.v1.AddProductResponse\x12M\n" +
+	"\vGetProperty\x12\x1f.property.v1.GetPropertyRequest\x1a .property.v1.GetPropertyResponse\x12P\n" +
+	"\vAddProperty\x12\x1f.property.v1.AddPropertyRequest\x1a .property.v1.AddPropertyResponse\x12M\n" +
 	"\x0eDeleteProperty\x12\x1f.property.v1.GetPropertyRequest\x1a\x1a.google.protobuf.BoolValue\x12Y\n" +
 	"\x0eUpdateProperty\x12\".property.v1.UpdatePropertyRequest\x1a#.property.v1.UpdatePropertyResponseB9Z7project_real_state/contracts/gen/property/v1;propertyv1b\x06proto3"
 
@@ -787,10 +796,10 @@ var file_property_v1_property_proto_goTypes = []any{
 	(*ApartmentDetails)(nil),       // 3: property.v1.ApartmentDetails
 	(*LandForSaleDetails)(nil),     // 4: property.v1.LandForSaleDetails
 	(*GetPropertyRequest)(nil),     // 5: property.v1.GetPropertyRequest
-	(*AddProductRequest)(nil),      // 6: property.v1.AddProductRequest
+	(*AddPropertyRequest)(nil),     // 6: property.v1.AddPropertyRequest
 	(*UpdatePropertyRequest)(nil),  // 7: property.v1.UpdatePropertyRequest
 	(*GetPropertyResponse)(nil),    // 8: property.v1.GetPropertyResponse
-	(*AddProductResponse)(nil),     // 9: property.v1.AddProductResponse
+	(*AddPropertyResponse)(nil),    // 9: property.v1.AddPropertyResponse
 	(*UpdatePropertyResponse)(nil), // 10: property.v1.UpdatePropertyResponse
 	(*fieldmaskpb.FieldMask)(nil),  // 11: google.protobuf.FieldMask
 	(*wrapperspb.BoolValue)(nil),   // 12: google.protobuf.BoolValue
@@ -800,18 +809,18 @@ var file_property_v1_property_proto_depIdxs = []int32{
 	2,  // 1: property.v1.Property.house:type_name -> property.v1.HouseDetails
 	3,  // 2: property.v1.Property.apartment:type_name -> property.v1.ApartmentDetails
 	4,  // 3: property.v1.Property.land_for_sale:type_name -> property.v1.LandForSaleDetails
-	1,  // 4: property.v1.AddProductRequest.property:type_name -> property.v1.Property
+	1,  // 4: property.v1.AddPropertyRequest.property:type_name -> property.v1.Property
 	1,  // 5: property.v1.UpdatePropertyRequest.property:type_name -> property.v1.Property
 	11, // 6: property.v1.UpdatePropertyRequest.update_mask:type_name -> google.protobuf.FieldMask
 	1,  // 7: property.v1.GetPropertyResponse.property:type_name -> property.v1.Property
-	1,  // 8: property.v1.AddProductResponse.property:type_name -> property.v1.Property
+	1,  // 8: property.v1.AddPropertyResponse.property:type_name -> property.v1.Property
 	1,  // 9: property.v1.UpdatePropertyResponse.property:type_name -> property.v1.Property
 	5,  // 10: property.v1.PropertyService.GetProperty:input_type -> property.v1.GetPropertyRequest
-	6,  // 11: property.v1.PropertyService.AddProperty:input_type -> property.v1.AddProductRequest
+	6,  // 11: property.v1.PropertyService.AddProperty:input_type -> property.v1.AddPropertyRequest
 	5,  // 12: property.v1.PropertyService.DeleteProperty:input_type -> property.v1.GetPropertyRequest
 	7,  // 13: property.v1.PropertyService.UpdateProperty:input_type -> property.v1.UpdatePropertyRequest
 	8,  // 14: property.v1.PropertyService.GetProperty:output_type -> property.v1.GetPropertyResponse
-	9,  // 15: property.v1.PropertyService.AddProperty:output_type -> property.v1.AddProductResponse
+	9,  // 15: property.v1.PropertyService.AddProperty:output_type -> property.v1.AddPropertyResponse
 	12, // 16: property.v1.PropertyService.DeleteProperty:output_type -> google.protobuf.BoolValue
 	10, // 17: property.v1.PropertyService.UpdateProperty:output_type -> property.v1.UpdatePropertyResponse
 	14, // [14:18] is the sub-list for method output_type

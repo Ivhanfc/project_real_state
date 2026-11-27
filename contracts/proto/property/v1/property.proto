@@ -18,13 +18,14 @@ message Property {
     uint64 id = 1;
     string agentID = 2;
     string name = 3;
-    repeated PropertyImage property_image =  4;
-    string address = 5;
-    string zone = 6;
-    int64  priceCents = 7;
-    string currency = 8;
-    bool   isAvailable = 9;
-    double  sizeM2 = 10;
+    string description = 4;
+    repeated PropertyImage property_image =  5;
+    string address = 6;
+    string zone = 7;
+    int64  priceCents = 8;
+    string currency = 9;
+    bool   isAvailable = 10;
+    double  sizeM2 = 11;
 
     oneof details {
       HouseDetails house = 12;
@@ -51,7 +52,7 @@ message LandForSaleDetails {
 message GetPropertyRequest {
   uint64 id = 1;
 }
-message AddProductRequest {
+message AddPropertyRequest {
  Property property = 1;
 }
 message UpdatePropertyRequest {
@@ -64,7 +65,7 @@ message GetPropertyResponse {
   Property property = 1;
 }
 
-message AddProductResponse {
+message AddPropertyResponse {
   Property property = 1;
 }
 
@@ -75,7 +76,7 @@ message UpdatePropertyResponse {
 
 service PropertyService {
   rpc GetProperty (GetPropertyRequest) returns (GetPropertyResponse);
-  rpc AddProperty (AddProductRequest) returns (AddProductResponse);
+  rpc AddProperty (AddPropertyRequest) returns (AddPropertyResponse);
   rpc DeleteProperty (GetPropertyRequest) returns (google.protobuf.BoolValue);
   rpc UpdateProperty(UpdatePropertyRequest) returns (UpdatePropertyResponse);
 }
